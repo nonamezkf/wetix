@@ -13,7 +13,7 @@ class Menu extends Component
      */
     public function __construct()
     {
-        //
+       //
     }
 
     /**
@@ -23,6 +23,29 @@ class Menu extends Component
      */
     public function render()
     {
-        return view('components.menu');
+        $list = $this->list();
+        return view('components.menu',[
+            'list'=>$list,
+        ]);
+    }
+
+    public function list(){
+        return[
+            [
+                'label' => 'Dashboard'
+            ],
+            [
+                'label' => 'Movies'
+            ],
+            [
+                'label' => 'Theaters'
+            ],
+            [
+                'label' => 'Tickets'
+            ],
+            [
+                'label' => 'Users'
+            ],
+        ];
     }
 }
