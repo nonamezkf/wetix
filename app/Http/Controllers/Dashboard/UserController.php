@@ -13,10 +13,25 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(User $users)
+
+     // definisikan variable request di function index untuk menerima permintaandari website seperti pada form untuk fitur search
+     //  definisikan model User ke function index untuk dapat mengakses databases user
+    public function index(Request $request, User $users)
     {
+        // variable $q menerima data dari form search pada halaman list user
+        // dengan parameter name q pada tag input yang ada pada form search
+        $q = $request->input('q');
+
         $active = 'Users';
-        $users = $users->paginate(10);
+        
+        // kode dibawah ini akan menampilkan data list user dengan jumah default 10 sesuan nilai pada pagination
+        // dan ketika variable $q memiliki nilai yang diterima dari request maka data yang ditampilkan akan sesuan dengan yang di input 
+        $users = $users->when($q, function($query) use ($q){
+            return $query->where('name', 'like', '%'.$q.'%')
+                         ->orwhere('email', 'like', '%'.$q.'%' );
+                         // data yang di tampilkan akan dicari pada database dibagian nama atau email jika memiliki kesamaan 
+            })->paginate(10);
+
         return view('dashboard/user/list', [
             'users' =>$users,
             'active' => $active],);
