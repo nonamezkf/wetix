@@ -31,9 +31,12 @@ class UserController extends Controller
                          ->orwhere('email', 'like', '%'.$q.'%' );
                          // data yang di tampilkan akan dicari pada database dibagian nama atau email jika memiliki kesamaan 
             })->paginate(10);
+        
+        $request = $request->all();  //menyimpan input dari 
 
         return view('dashboard/user/list', [
             'users' =>$users,
+            'request' =>$request,
             'active' => $active],);
         // dd($users);
     }

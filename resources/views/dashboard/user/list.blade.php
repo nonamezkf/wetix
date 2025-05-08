@@ -43,7 +43,9 @@
                 </tbody>
             </table>
 
-            {{$users->links()}}
+            {{$users->appends($request)->links()}}
+            <!-- kode di atas berfungsi untuk menampilkan pagination  -->
+            <!-- dan jika variable request memiliki nilai maka akan di tambahkan setelah link pagination -->
         </div>
     </div>
 
