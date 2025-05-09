@@ -11,7 +11,7 @@
                 <div class="col-4">
                     <form action="{{ url('dashboard/users') }}" method="get">
                         <div class="input-group">
-                            <input type="text" class="form-control" name="q">
+                            <input type="text" class="form-control" name="q" value="{{ $request['q'] ?? '' }}">
                             <button type="submit" class="btn btn-secondary btn-sm ">Search</button>
                         </div>
                     </form>
