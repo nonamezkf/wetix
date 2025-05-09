@@ -80,8 +80,14 @@ class UserController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
-    {
-        //
+    {   
+        $active = 'Users';
+
+        $user = USER::find($id);
+        
+        return view('dashboard/user/formEditUser', [
+            'user' =>$user,
+            'active' => $active]);
     }
 
     /**
