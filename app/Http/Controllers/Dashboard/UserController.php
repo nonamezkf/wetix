@@ -5,7 +5,10 @@ namespace App\Http\Controllers\Dashboard;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
+use Illuminate\Validation\Rules\Unique;
 use Symfony\Component\Console\Input\Input;
+use Validator;
+
 
 class UserController extends Controller
 {
@@ -104,19 +107,43 @@ class UserController extends Controller
 
         //mencari user berdasarkan id yang terima dari route update
         $user = USER::find($id);
-        // mendefinisikan variable model user dengan atribut/kolom name untuk menerima input dari form edit user berdasarkan tag input dengan atribute name="name"
-        $user->name = $request->input('name');
-        // mendefinisikan variable model user dengan atribut/kolom email untuk menerima input dari form edit user berdasarkan tag input dengan atribute name="name"
-        $user->email = $request->input('email');
-        // data dari form input akan di diperbarui di database berdasarkan id tertentu yang telah diterima
-        $user->save();
 
-        // kode routing dibawah ini mengarahkah user ke halaman list user dengan menggunakan penamaan pada route 
-        // return redirect()->route('users');
+        //validasi input pada formedit user
+        //$request->all() berfungsi untuk mendapatkan semua data input pada form
+        $validator = VALIDATOR::make($request->all(), [
+            // validasi input email 
+            // required, berarti kolom input email harus wajib diisi
+            // unique, data pada kolom email harus bersifat unik tidak boleh sama dengan data user lain
+            // App\Models\user,email, .$id  (data dari form kolom email akan dicek pada database model user di kolom email juga apakah data sama atau berbeda dengan kolom email lain pada model user)
+            // $id, berfungsi untuk pengecualian jika data yg di dikirim pada kolom email sama dengan data sebelumnya maka validasi pada kolom email akan dilewati  
+            'email' =>'required|unique:App\Models\user,email,'. $id,
+            'name' =>'required'
+        ]);
 
-        // sedangkang kode dibawah ini tidak menggunakan penamaan route alias langsung ke ke pengalamatan halaman 
-        return redirect('/dashboard/users');
+        // kondisi ketika validator menemukan kesealahan input pada form
+        if($validator->fails()){
+            //user akan di redirect ke halaman edit
+            return redirect('dashboard/user/edit/'.$id)
+                    // membawa value error dari validator
+                    ->withErrors($validator)
+                    // membawa value yang di input user
+                    ->withInput();
 
+        // kondisi ketika validator berhasil di lewati atau user menginput data sesusai validasi 
+        }else{
+            // mendefinisikan variable model user dengan atribut/kolom name untuk menerima input dari form edit user berdasarkan tag input dengan atribute name="name"
+            $user->name = $request->input('name');
+            // mendefinisikan variable model user dengan atribut/kolom email untuk menerima input dari form edit user berdasarkan tag input dengan atribute name="name"
+            $user->email = $request->input('email');
+            // data dari form input akan di diperbarui di database berdasarkan id tertentu yang telah diterima
+            $user->save();
+
+            // kode routing dibawah ini mengarahkah user ke halaman list user dengan menggunakan penamaan pada route 
+            // return redirect()->route('users');
+
+            // sedangkang kode dibawah ini tidak menggunakan penamaan route alias langsung ke ke pengalamatan halaman 
+            return redirect('/dashboard/users');
+        }
     }
 
     /**

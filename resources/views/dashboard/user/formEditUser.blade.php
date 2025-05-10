@@ -21,10 +21,17 @@
                         <div class="form-group">
                             <label for="">Nama</label>
                             <input type="text" class="form-control" name="name" value="{{$user->name}}">
+                            <!-- kode dibawah ini untuk menampilkan pesan error dari validator -->
+                            @error('name')
+                                <span class="text-danger">{{$message}}</span>
+                            @enderror
                         </div>
                         <div class="form-group">
                             <label for="">Email</label>
-                            <input type="email" class="form-control" name="email" value="{{$user->email}}">
+                            <input type="email" class="form-control" name="email" value="{{old('email') ?? $user->email}}">
+                            @error('email')
+                                <span class="text-danger">{{$message}}</span>
+                            @enderror
                         </div>
                         <div class="form-group">
                             <button type="submit" class="btn btn-success btn-sm">Update</button>
