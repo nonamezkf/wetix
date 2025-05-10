@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Dashboard;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
+use Symfony\Component\Console\Input\Input;
 
 class UserController extends Controller
 {
@@ -99,7 +100,23 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        // dd($request);
+
+        //mencari user berdasarkan id yang terima dari route update
+        $user = USER::find($id);
+        // mendefinisikan variable model user dengan atribut/kolom name untuk menerima input dari form edit user berdasarkan tag input dengan atribute name="name"
+        $user->name = $request->input('name');
+        // mendefinisikan variable model user dengan atribut/kolom email untuk menerima input dari form edit user berdasarkan tag input dengan atribute name="name"
+        $user->email = $request->input('email');
+        // data dari form input akan di diperbarui di database berdasarkan id tertentu yang telah diterima
+        $user->save();
+
+        // kode routing dibawah ini mengarahkah user ke halaman list user dengan menggunakan penamaan pada route 
+        // return redirect()->route('users');
+
+        // sedangkang kode dibawah ini tidak menggunakan penamaan route alias langsung ke ke pengalamatan halaman 
+        return redirect('/dashboard/users');
+
     }
 
     /**

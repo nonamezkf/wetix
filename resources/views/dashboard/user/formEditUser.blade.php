@@ -16,7 +16,8 @@
         <div class="card-body p-0">
             <div class="row">
                 <div class="col-md-8 offset-md-2">
-                    <form action="post" action="{{ url('dashboard/user/update') }}">
+                    <form method="post" action="{{ url('dashboard/user/update/'.$user->id) }}">
+                        @csrf
                         <div class="form-group">
                             <label for="">Nama</label>
                             <input type="text" class="form-control" name="name" value="{{$user->name}}">
