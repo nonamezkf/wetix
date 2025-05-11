@@ -154,6 +154,11 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        //
+        // dapatkat id user dari form delete yg dikirim dari routing
+        $user = USER::find($id);
+        // delete data user
+        $user->delete();
+        // jika delet berhasil maka admin akan di arahkan ke halaman list user
+        return redirect('dashboard/users');
     }
 }

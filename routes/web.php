@@ -25,3 +25,4 @@ Route::get('/dashboard', 'Dashboard\DashboardController@index')->name('dashboard
 Route::get('/dashboard/users', 'Dashboard\UserController@index')->name('users');
 Route::get('/dashboard/user/edit/{id}', 'Dashboard\UserController@edit');
 Route::post('/dashboard/user/update/{id}', 'Dashboard\UserController@update');
+Route::post('/dashboard/user/delete/{id}', 'Dashboard\UserController@destroy');

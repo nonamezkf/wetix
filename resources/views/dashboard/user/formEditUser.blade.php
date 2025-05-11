@@ -8,8 +8,8 @@
                     <h3>Users</h3>
                 </div>
 
-                <div class="col-4">
-                    
+                <div class="col-4 text-right">
+                    <button class="btn text-bold btn-sm btn-warning" data-toggle="modal" data-target="#deleteModal">Delete</button>
                 </div>
             </div>
         </div>
@@ -36,6 +36,25 @@
                         <div class="form-group">
                             <button type="submit" class="btn btn-success btn-sm">Update</button>
                         </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="deleteModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5>delete</h5>
+                </div>
+                <div class="modal-body">
+                    <p>Anda yakin ingin menghapus data user {{$user->name}}?</p>
+                </div>
+                <div class="modal-footer">
+                    <form action="{{ url('dashboard/user/delete/'.$user->id) }}" method="post">
+                        @csrf
+                        <button class="btn btn-danger btn-sm">Delete</button>
                     </form>
                 </div>
             </div>
