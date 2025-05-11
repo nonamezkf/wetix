@@ -24,5 +24,7 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/dashboard', 'Dashboard\DashboardController@index')->name('dashboard');
 Route::get('/dashboard/users', 'Dashboard\UserController@index')->name('users');
 Route::get('/dashboard/user/edit/{id}', 'Dashboard\UserController@edit');
-Route::post('/dashboard/user/update/{id}', 'Dashboard\UserController@update');
-Route::post('/dashboard/user/delete/{id}', 'Dashboard\UserController@destroy');
+// menggunakan custom method 'put' bawaan laravel untuk proses mengupdate data
+Route::put('/dashboard/user/update/{id}', 'Dashboard\UserController@update');
+// menggunakan custom method 'delete' bawaan laravel untuk proses menghapus data
+Route::delete('/dashboard/user/delete/{id}', 'Dashboard\UserController@destroy');

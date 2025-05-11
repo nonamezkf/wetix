@@ -18,6 +18,8 @@
                 <div class="col-md-8 offset-md-2">
                     <form method="post" action="{{ url('dashboard/user/update/'.$user->id) }}">
                         @csrf
+                        <!-- mencoba menggunakan custom method bawaan laravel untuk update data -->
+                        @method("put")
                         <div class="form-group">
                             <label for="">Nama</label>
                             <input type="text" class="form-control" name="name" value="{{$user->name}}">
@@ -54,6 +56,8 @@
                 <div class="modal-footer">
                     <form action="{{ url('dashboard/user/delete/'.$user->id) }}" method="post">
                         @csrf
+                        <!-- mencoba menggunakan custom method bawaan laravel untuk delete data -->
+                        @method("delete")
                         <button class="btn btn-danger btn-sm">Delete</button>
                     </form>
                 </div>
