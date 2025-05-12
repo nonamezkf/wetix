@@ -36,6 +36,7 @@
                             @enderror
                         </div>
                         <div class="form-group mb-0">
+                            <button type="button " class="btn btn-sm btn-secondary" onclick="window.history.back()">Cancel</button>
                             <button type="submit" class="btn btn-success btn-sm">Update</button>
                         </div>
                     </form>
