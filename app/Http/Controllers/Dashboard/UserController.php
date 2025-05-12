@@ -12,6 +12,11 @@ use Validator;
 
 class UserController extends Controller
 {
+    // autentikasi pengguna terlebih dahulu sebelum mengakses halaman ini apakah sudah login atau belum
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     /**
      * Display a listing of the resource.
      *
