@@ -4,7 +4,7 @@
     <div class="card">
         <div class="card-header">
         <div class="row">
-                <div class="col-8">
+                <div class="col-8 align-self-center">
                     <h3>Users</h3>
                 </div>
 
@@ -13,7 +13,7 @@
                 </div>
             </div>
         </div>
-        <div class="card-body p-0">
+        <div class="card-body">
             <div class="row">
                 <div class="col-md-8 offset-md-2">
                     <form method="post" action="{{ url('dashboard/user/update/'.$user->id) }}">
@@ -35,7 +35,7 @@
                                 <span class="text-danger">{{$message}}</span>
                             @enderror
                         </div>
-                        <div class="form-group">
+                        <div class="form-group mb-0">
                             <button type="submit" class="btn btn-success btn-sm">Update</button>
                         </div>
                     </form>
