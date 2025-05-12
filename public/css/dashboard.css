@@ -46,6 +46,7 @@ table.table tr th {
 table.table tr td {
   color: #737373;
   font-size: 1em;
+  vertical-align: middle;
 }
 
 .pagination {
