@@ -49,7 +49,9 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5>delete</h5>
+                    <h5>Delete</h5>
+
+                    <button class="close" type="button" data-dismiss="modal">x</button>
                 </div>
                 <div class="modal-body">
                     <p>Anda yakin ingin menghapus data user {{$user->name}}?</p>
