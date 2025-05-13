@@ -9,7 +9,7 @@
                 </div>
 
                 <div class="col-4 text-right">
-                    <button class="btn text-bold btn-sm btn-warning" data-toggle="modal" data-target="#deleteModal">Delete</button>
+                    <button class="btn text-bold btn-sm btn-warning" data-toggle="modal" data-target="#deleteModal"><i class="fas fa-trash"></i></button>
                 </div>
             </div>
         </div>
@@ -59,7 +59,7 @@
                         @csrf
                         <!-- mencoba menggunakan custom method bawaan laravel untuk delete data -->
                         @method("delete")
-                        <button class="btn btn-danger btn-sm">Delete</button>
+                        <button class="btn btn-danger btn-sm"><i class="fas fa-trash"></i>  Delete</button>
                     </form>
                 </div>
             </div>
