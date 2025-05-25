@@ -21,10 +21,15 @@ Auth::routes();
 
 // Route::get('/home', 'HomeController@index')->name('home');
 
-Route::get('/dashboard', 'Dashboard\DashboardController@index')->name('dashboard');
-Route::get('/dashboard/users', 'Dashboard\UserController@index')->name('dashboard.users');
-Route::get('/dashboard/users/{id}', 'Dashboard\UserController@edit')->name('dashboard.user.edit');
-// menggunakan custom method 'put' bawaan laravel untuk proses mengupdate data
-Route::put('/dashboard/users/{id}', 'Dashboard\UserController@update')->name('dashboard.user.update');
-// menggunakan custom method 'delete' bawaan laravel untuk proses menghapus data
-Route::delete('/dashboard/users/{id}', 'Dashboard\UserController@destroy')->name('dashboard.user.delete');
+
+Route::middleware('auth')->group(function(){
+    
+    Route::get('/dashboard', 'Dashboard\DashboardController@index')->name('dashboard');
+    Route::get('/dashboard/users', 'Dashboard\UserController@index')->name('dashboard.users');
+    Route::get('/dashboard/users/{id}', 'Dashboard\UserController@edit')->name('dashboard.user.edit');
+    // menggunakan custom method 'put' bawaan laravel untuk proses mengupdate data
+    Route::put('/dashboard/users/{id}', 'Dashboard\UserController@update')->name('dashboard.user.update');
+    // menggunakan custom method 'delete' bawaan laravel untuk proses menghapus data
+    Route::delete('/dashboard/users/{id}', 'Dashboard\UserController@destroy')->name('dashboard.user.delete');
+
+});
