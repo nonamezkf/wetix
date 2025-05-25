@@ -9,7 +9,7 @@
                 </div>
 
                 <div class="col-4">
-                    <form action="{{ url('dashboard/users') }}" method="get">
+                    <form action="{{ route('dashboard.users') }}" method="get">
                         <div class="input-group">
                             <input type="text" class="form-control form-control-sm" name="q" value="{{ $request['q'] ?? '' }}">
                             <button type="submit" class="btn btn-secondary btn-sm ">Search</button>
@@ -39,7 +39,14 @@
                             <td>{{$user->email}}</td>
                             <td>{{$user->created_at}}</td>
                             <td>{{$user->updated_at}}</td>
-                            <td><a href="{{ url('dashboard/user/edit/'.$user->id) }}" class="btn btn-success btn-sm" title="edit" ><i class="fas fa-pen"></i></a></td>
+                            <td>
+                                <!-- dibawah ini untuk contoh untuk routing menggunakan url() -->
+                                <!-- <a href="{{ url('dashboard/user/edit/'.$user->id) }}" class="btn btn-success btn-sm" title="edit" ><i class="fas fa-pen"></i></a> -->
+
+                                
+                                <!-- dibawah ini untuk routing menggunakan route() -->
+                                <a href="{{ route('dashboard.user.edit', ['id' => $user->id]) }}" class="btn btn-success btn-sm" title="edit" ><i class="fas fa-pen"></i></a>
+                            </td>
                         </tr>
                     @endforeach
                 </tbody>

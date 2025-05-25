@@ -19,12 +19,12 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+// Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('/dashboard', 'Dashboard\DashboardController@index')->name('dashboard');
-Route::get('/dashboard/users', 'Dashboard\UserController@index')->name('users');
-Route::get('/dashboard/user/edit/{id}', 'Dashboard\UserController@edit');
+Route::get('/dashboard/users', 'Dashboard\UserController@index')->name('dashboard.users');
+Route::get('/dashboard/user/edit/{id}', 'Dashboard\UserController@edit')->name('dashboard.user.edit');
 // menggunakan custom method 'put' bawaan laravel untuk proses mengupdate data
-Route::put('/dashboard/user/update/{id}', 'Dashboard\UserController@update');
+Route::put('/dashboard/user/update/{id}', 'Dashboard\UserController@update')->name('dashboard.user.update');
 // menggunakan custom method 'delete' bawaan laravel untuk proses menghapus data
-Route::delete('/dashboard/user/delete/{id}', 'Dashboard\UserController@destroy');
+Route::delete('/dashboard/user/delete/{id}', 'Dashboard\UserController@destroy')->name('dashboard.user.delete');

@@ -115,21 +115,22 @@ class UserController extends Controller
 
         //validasi input pada formedit user
         //$request->all() berfungsi untuk mendapatkan semua data input pada form
-        $validator = VALIDATOR::make($request->all(), [
+        $validator = VALIDATOR::make($request->all(), [ 
+            'email' =>'required|unique:App\Models\user,email,'. $id,
             // validasi input email 
             // required, berarti kolom input email harus wajib diisi
             // unique, data pada kolom email harus bersifat unik tidak boleh sama dengan data user lain
             // App\Models\user,email, .$id  (data dari form kolom email akan dicek pada database model user di kolom email juga apakah data sama atau berbeda dengan kolom email lain pada model user)
-            // $id, berfungsi untuk pengecualian jika data yg di dikirim pada kolom email sama dengan data sebelumnya maka validasi pada kolom email akan dilewati  
-            'email' =>'required|unique:App\Models\user,email,'. $id,
+            // $id, berfungsi untuk pengecualian jika data yg di dikirim pada kolom email sama dengan data sebelumnya maka validasi pada kolom email akan dilewati 
             'name' =>'required'
         ]);
 
         // kondisi ketika validator menemukan kesealahan input pada form
         if($validator->fails()){
             //user akan di redirect ke halaman edit
-            return redirect('dashboard/user/edit/'.$id)
-                    // membawa value error dari validator
+            // return redirect('dashboard/user/edit/'.$id)
+            return redirect()->route('dashboard.user.edit', ['id' => $user->id])
+            // membawa value error dari validator
                     ->withErrors($validator)
                     // membawa value yang di input user
                     ->withInput();
@@ -144,10 +145,10 @@ class UserController extends Controller
             $user->save();
 
             // kode routing dibawah ini mengarahkah user ke halaman list user dengan menggunakan penamaan pada route 
-            // return redirect()->route('users');
+            return redirect()->route('dashboard.users');
 
             // sedangkang kode dibawah ini tidak menggunakan penamaan route alias langsung ke ke pengalamatan halaman 
-            return redirect('/dashboard/users');
+            // return redirect('/dashboard/users');
         }
     }
 
@@ -164,6 +165,7 @@ class UserController extends Controller
         // delete data user
         $user->delete();
         // jika delet berhasil maka admin akan di arahkan ke halaman list user
-        return redirect('dashboard/users');
+        //  return redirect('dashboard/users');
+        return redirect()->route('dashboard.users');
     }
 }
