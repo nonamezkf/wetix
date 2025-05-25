@@ -35,23 +35,28 @@ class Menu extends Component
         return[
             [
                 'label' => 'Dashboard',
-                'route'=> 'dashboard'
+                'route'=> 'dashboard',
+                'icon' => 'fas fa-columns'
             ],
             [
                 'label' => 'Movies',
-                'route'=> 'dashboard.movies'
+                'route'=> 'dashboard.movies',
+                'icon' => 'fas fa-video'
             ],
             [
                 'label' => 'Theaters',
-                'route'=> 'dashboard.theaters'
+                'route'=> 'dashboard.theaters',
+                'icon' => 'fas fa-theater-masks'
             ],
             [
                 'label' => 'Tickets',
-                'route'=> 'dashboard.tickets'
+                'route'=> 'dashboard.tickets',
+                'icon' => 'fas fa-ticket-alt'
             ],
             [
                 'label' => 'Users',
-                'route'=> 'dashboard.users'
+                'route'=> 'dashboard.users',
+                'icon' => 'fas fa-users'
             ],
         ];
     }
