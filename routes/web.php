@@ -23,8 +23,13 @@ Auth::routes();
 
 
 Route::middleware('auth')->group(function(){
-    
+
     Route::get('/dashboard', 'Dashboard\DashboardController@index')->name('dashboard');
+    Route::get('/dashboard/movies', 'Dashboard\MovieController@index')->name('dashboard.movies');
+    Route::get('/dashboard/theaters', 'Dashboard\TheaterController@index')->name('dashboard.theaters');
+    Route::get('/dashboard/tickets', 'Dashboard\TicketController@index')->name('dashboard.tickets');
+
+
     Route::get('/dashboard/users', 'Dashboard\UserController@index')->name('dashboard.users');
     Route::get('/dashboard/users/{id}', 'Dashboard\UserController@edit')->name('dashboard.user.edit');
     // menggunakan custom method 'put' bawaan laravel untuk proses mengupdate data
