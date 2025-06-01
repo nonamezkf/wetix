@@ -13,9 +13,27 @@ class MovieController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request, Movie $movies)
     {
-        //
+        // variable $q menerima data dari form search pada halaman list movies
+        // dengan parameter name q pada tag input yang ada pada form search
+        $q = $request->input('q');
+
+        $active = 'Movies';
+        
+        // kode dibawah ini akan menampilkan data list movie dengan jumah default 10 sesuan nilai pada pagination
+        // dan ketika variable $q memiliki nilai yang diterima dari request maka data yang ditampilkan akan sesuan dengan yang di input 
+        $movies = $movies->when($q, function($query) use ($q){
+            return $query->where('title', 'like', '%'.$q.'%');
+                         // data yang di tampilkan akan dicari pada database dibagian title jika memiliki kesamaan 
+            })->paginate(10);
+        
+        $request = $request->all();  //menyimpan nilai dari input pada form search
+
+        return view('dashboard/movie/list', [
+            'movies' =>$movies,
+            'request' =>$request,
+            'active' => $active],);
     }
 
     /**
