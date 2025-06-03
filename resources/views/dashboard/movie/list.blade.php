@@ -1,6 +1,9 @@
 @extends('layouts.baseDashboard')
 
 @section('content')
+    <div class="mb-2">
+        <a href="{{ route('dashboard.movies.create') }}" class="btn btn-primary">+ Movie</a>
+    </div>
     <div class="card">
         <div class="card-header">
             <div class="row">
@@ -36,17 +39,17 @@
                         @foreach ($movies as $movie)
                             <tr>
                                 <th scope="row">{{ ($movies->currentPage() -1) * $movies->perPage() + $loop->iteration}}</th>
-                                <td>{{$movie->name}}</td>
-                                <td>{{$movie->email}}</td>
-                                <td>{{$movie->created_at}}</td>
+                                <td>{{$movie->title}}</td>
+                                <td>{{$movie->thumbnail}}</td>
+                                <td>{{$movie->description}}</td>
                                 <td>{{$movie->updated_at}}</td>
                                 <td>
                                     <!-- dibawah ini untuk contoh untuk routing menggunakan url() -->
-                                    <!-- <a href="{{ url('dashboard/user/edit/'.$user->id) }}" class="btn btn-success btn-sm" title="edit" ><i class="fas fa-pen"></i></a> -->
+                                    <!-- <a href=" url('dashboard/user/edit/'.$user->id) }}" class="btn btn-success btn-sm" title="edit" ><i class="fas fa-pen"></i></a> -->
 
                                     
                                     <!-- dibawah ini untuk routing menggunakan route() -->
-                                    <a href="{{ route('dashboard.movie.edit', ['id' => $user->id]) }}" class="btn btn-success btn-sm" title="edit" ><i class="fas fa-pen"></i></a>
+                                    <a href="{{ route('dashboard.movies.edit', ['id' => $movie->id]) }}" class="btn btn-success btn-sm" title="edit" ><i class="fas fa-pen"></i></a>
                                 </td>
                             </tr>
                         @endforeach
