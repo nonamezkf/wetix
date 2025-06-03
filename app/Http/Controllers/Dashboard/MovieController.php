@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers\Dashboard;
 
-use App\Http\Controllers\Controller;
 use App\Models\Movie;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Validator;
 
 class MovieController extends Controller
 {
@@ -41,9 +43,12 @@ class MovieController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        //
+        $active = 'Movies';
+
+        return view('dashboard/movie/form', [
+            'active' => $active]);
     }
 
     /**
@@ -52,9 +57,43 @@ class MovieController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, Movie $movie)
     {
-        //
+        // melakukan validasi input form movie
+        $validator = Validator::make($request->all(),[
+            'title' => 'required|unique:Movie,title',
+            'thumbnail' => 'required|image',
+            'description' => 'required'
+        ]);
+
+        // kirim data error jika terdapat kesalahan pada form input
+        if($validator->fails()){
+
+            return redirect()
+                   ->route('dashboard.movies.create')
+                   ->withErrors($validator)
+                   ->withInput();
+        }else{
+
+            // menerima file image dari form input 
+            $image = $request->file('thumbnail');
+            // merubah penamaann file image yang sudah di upload dengan mempertahankan original extention (.png / .jpeg)
+            $filename = time() . '.' . $image->getClientOriginalExtension();
+            // menyimpan pada local storage 
+            Storage::disk('local')->putFileAs('public/movies', $image, $filename);
+            
+            // menangkap data title dari form input create movie
+            $movie->title = $request->input('title');
+            // menangkap data description dari form input create movie
+            $movie->description = $request->input('description');
+            // menangkap data nama file thumbnail dari hasil olah data yang di definisikan di variable $filename
+            $movie->thumbnail = $filename;
+            // mengirim data movie ke database
+            $movie->save();
+
+            return redirect()->route('dashboard.movies');
+
+        }
     }
 
     /**
