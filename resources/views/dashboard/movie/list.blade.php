@@ -40,7 +40,9 @@
                             <tr>
                                 <th scope="row">{{ ($movies->currentPage() -1) * $movies->perPage() + $loop->iteration}}</th>
                                 <td>{{$movie->title}}</td>
-                                <td>{{$movie->thumbnail}}</td>
+                                <td class="col-thumbnail">
+                                    <img src="{{asset('storage/movies/'.$movie->thumbnail)}}" alt="" class="img-fluid">
+                                </td>
                                 <td>{{$movie->description}}</td>
                                 <td>{{$movie->updated_at}}</td>
                                 <td>
