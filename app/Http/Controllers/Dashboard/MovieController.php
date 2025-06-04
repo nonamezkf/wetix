@@ -48,7 +48,10 @@ class MovieController extends Controller
         $active = 'Movies';
 
         return view('dashboard/movie/form', [
-            'active' => $active]);
+            'active' => $active,
+            'button' => 'Create',
+            'url'   => 'dashboard.movies.store'
+        ]);
     }
 
     /**
@@ -61,7 +64,7 @@ class MovieController extends Controller
     {
         // melakukan validasi input form movie
         $validator = Validator::make($request->all(),[
-            'title' => 'required|unique:Movie,title',
+            'title' => 'required|unique:App\Models\Movie,title',
             'thumbnail' => 'required|image',
             'description' => 'required'
         ]);
@@ -115,7 +118,14 @@ class MovieController extends Controller
      */
     public function edit(Movie $movie)
     {
-        //
+        $active = 'Movies';
+
+        return view('dashboard/movie/form', [
+            'movie' => $movie,
+            'button' => 'Update',
+            'url'   => 'dashboard.movies.update',
+            'active' => $active
+        ]);
     }
 
     /**
@@ -127,7 +137,42 @@ class MovieController extends Controller
      */
     public function update(Request $request, Movie $movie)
     {
-        //
+        $validator = Validator::make($request->all(),[
+            'title' => 'required|unique:App\Models\Movie,title,' .$movie->id,
+            // 'thumbnail' => 'required|image',
+            'description' => 'required'
+        ]);
+
+        // kirim data error jika terdapat kesalahan pada form input
+        if($validator->fails()){
+
+            return redirect()
+                   ->route('dashboard.movies.update', $movie->id)
+                   ->withErrors($validator)
+                   ->withInput();
+        }else{
+            // melakukan validasi pengecekan pada request jika terdapat file image pada akan ditambahkan ke variabel $movie untuk di save(). jika tidak ada makan akan dilewati
+            if($request->hasFile('thumbnail')){
+                // menerima file image dari form input 
+                $image = $request->file('thumbnail');
+                // merubah penamaann file image yang sudah di upload dengan mempertahankan original extention (.png / .jpeg)
+                $filename = time() . '.' . $image->getClientOriginalExtension();
+                // menyimpan pada local storage 
+                Storage::disk('local')->putFileAs('public/movies', $image, $filename);
+                // menangkap data nama file thumbnail dari hasil olah data yang di definisikan di variable $filename
+                $movie->thumbnail = $filename;
+            }
+
+            // menangkap data title dari form input create movie
+            $movie->title = $request->input('title');
+            // menangkap data description dari form input create movie
+            $movie->description = $request->input('description');
+            // mengirim data movie ke database
+            $movie->save();
+
+            return redirect()->route('dashboard.movies');
+
+        }
     }
 
     /**
@@ -138,6 +183,7 @@ class MovieController extends Controller
      */
     public function destroy(Movie $movie)
     {
-        //
+        $movie->delete();
+        return redirect()->route('dashboard.movies');   
     }
 }
