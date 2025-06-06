@@ -94,7 +94,9 @@ class MovieController extends Controller
             // mengirim data movie ke database
             $movie->save();
 
-            return redirect()->route('dashboard.movies');
+            return redirect()
+                   ->route('dashboard.movies')
+                   ->with('message', __('messages.store', ['title' => $request->input('title')]));
 
         }
     }
@@ -139,7 +141,7 @@ class MovieController extends Controller
     {
         $validator = Validator::make($request->all(),[
             'title' => 'required|unique:App\Models\Movie,title,' .$movie->id,
-            // 'thumbnail' => 'required|image',
+            'thumbnail' => 'image',
             'description' => 'required'
         ]);
 
@@ -163,14 +165,19 @@ class MovieController extends Controller
                 $movie->thumbnail = $filename;
             }
 
-            // menangkap data title dari form input create movie
+            // menangkap data title lama 
+            $title = $movie->title;
+
+            // menangkap data title baru dari form input create movie
             $movie->title = $request->input('title');
-            // menangkap data description dari form input create movie
+            // menangkap data description baru dari form input create movie
             $movie->description = $request->input('description');
             // mengirim data movie ke database
             $movie->save();
 
-            return redirect()->route('dashboard.movies');
+            return redirect()
+                   ->route('dashboard.movies')
+                   ->with('message', __('messages.update', ['title' => $title]));
 
         }
     }
@@ -183,7 +190,11 @@ class MovieController extends Controller
      */
     public function destroy(Movie $movie)
     {
+        $title = $movie->title;
+
         $movie->delete();
-        return redirect()->route('dashboard.movies');   
+        return redirect()
+               ->route('dashboard.movies')
+               ->with('message', __('messages.delete', ['title' => $title]));
     }
 }
