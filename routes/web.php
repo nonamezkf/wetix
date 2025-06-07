@@ -34,7 +34,14 @@ Route::middleware('auth')->group(function(){
     Route::put('/dashboard/movies/{movie}', 'Dashboard\MovieController@update')->name('dashboard.movies.update');
     Route::delete('/dashboard/movies/{movie}', 'Dashboard\MovieController@destroy')->name('dashboard.movies.delete');
     
+    //route theater
     Route::get('/dashboard/theaters', 'Dashboard\TheaterController@index')->name('dashboard.theaters');
+    Route::get('/dashboard/theaters/create', 'Dashboard\TheaterController@create')->name('dashboard.theaters.create');
+    Route::post('/dashboard/theaters/store', 'Dashboard\TheaterController@store')->name('dashboard.theaters.store');
+    Route::get('/dashboard/theaters/{theater}', 'Dashboard\TheaterController@edit')->name('dashboard.theaters.edit');
+    Route::put('/dashboard/theaters/{theater}', 'Dashboard\TheaterController@update')->name('dashboard.theaters.update');
+    Route::delete('/dashboard/theaters/{theater}', 'Dashboard\TheaterController@destroy')->name('dashboard.theaters.delete');
+
     Route::get('/dashboard/tickets', 'Dashboard\TicketController@index')->name('dashboard.tickets');
 
 
