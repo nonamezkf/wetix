@@ -64,7 +64,7 @@
                 <!-- kode di atas berfungsi untuk menampilkan pagination  -->
                 <!-- dan jika variable request memiliki nilai maka akan di tambahkan setelah link pagination -->
             @else
-                <h4 class="text-center p-3">Data theater tidak tersedia</h4>
+                <h4 class="text-center p-3">{{ __('messages.no_data', ['module' => 'theater']) }}</h4>
             @endif
         </div>
     </div>
