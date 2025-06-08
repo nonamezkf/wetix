@@ -15,7 +15,7 @@ class CreateTableTheaters extends Migration
     {
         Schema::create('theaters', function (Blueprint $table) {
             $table->id();
-            $table->string('theather', 250);
+            $table->string('theater', 250);
             $table->string('address', 250);
             $table->enum('status', ['active', 'inactive']);
             $table->softDeletes('deleted_at');
