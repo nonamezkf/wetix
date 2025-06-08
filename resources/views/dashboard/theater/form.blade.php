@@ -25,7 +25,7 @@
                         @endif
                         <!-- mencoba menggunakan custom method bawaan laravel untuk update data -->
                         <div class="form-group">
-                            <label for="title">Theater</label>
+                            <label for="theater">Theater</label>
                             <input type="text" class="form-control @error('theater') {{'is-invalid'}} @enderror" name="theater" value="{{ old('theater') ?? $theater->theater ?? '' }}">
                             <!-- kode dibawah ini untuk menampilkan pesan error dari validator -->
                             @error('theater')
@@ -53,6 +53,12 @@
                                 <input type="radio" name="status" class="form-check-input" value="inactive" id="inactive">
                                 <label for="inactive" class="form-check-label">Inactive</label>
                             </div>
+                            <div>
+                                @error('status')
+                                    <span class="text-danger">{{$message}}</span>
+                                @enderror
+                            </div>
+                            
                         </div>                    
                         
                         <div class="form-group mb-0">
