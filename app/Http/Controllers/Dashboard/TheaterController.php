@@ -15,11 +15,11 @@ class TheaterController extends Controller
      */
     public function index(Request $request, Theater $theaters)
     {
-         // variable $q menerima data dari form search pada halaman list theaters
+        // variable $q menerima data dari form search pada halaman list theaters
         // dengan parameter name q pada tag input yang ada pada form search
         $q = $request->input('q');
 
-        $active = 'Theater';
+        $active = 'Theaters';
         
         // kode dibawah ini akan menampilkan data list movie dengan jumah default 10 sesuan nilai pada pagination
         // dan ketika variable $q memiliki nilai yang diterima dari request maka data yang ditampilkan akan sesuan dengan yang di input 
@@ -43,7 +43,13 @@ class TheaterController extends Controller
      */
     public function create()
     {
-        //
+        $active = 'Theater';
+
+        return view('dashboard/theater/form', [
+            'active' => $active,
+            'button' => 'Create',
+            'url'   => 'dashboard.theaters.store'
+        ]);
     }
 
     /**
