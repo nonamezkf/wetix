@@ -50,10 +50,10 @@
                                 <th scope="row">{{ ($theaters->currentPage() -1) * $theaters->perPage() + $loop->iteration}}</th>
                                 <td>{{$theater->theater}}</td>
                                 <td>{{$theater->address}}</td>
-                                <td>{{$theater->updated_at}}</td>
                                 <td>                                    
                                     <!-- dibawah ini untuk routing menggunakan route() -->
                                     <a href="{{ route('dashboard.theaters.edit', $theater->id) }}" class="btn btn-success btn-sm" title="edit" ><i class="fas fa-pen"></i></a>
+                                    <a href="{{ route('dashboard.arrange.movie', $theater->id) }}" class="btn btn-primary btn-sm" title="edit" ><i class="fas fa-film"></i></a>
                                 </td>
                             </tr>
                         @endforeach
