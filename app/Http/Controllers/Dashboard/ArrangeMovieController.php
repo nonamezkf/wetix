@@ -25,10 +25,13 @@ class ArrangeMovieController extends Controller
 
         $active = 'Theaters';
         
+        $arrangeMovies = ArrangeMovie::where('theater_id', $theater->id)
+                                    ->with('movies')
+                                    ->paginate(10);
         
-
         return view('dashboard/arrange_movie/list', [
             'theater' =>$theater,
+            'arrangeMovies' => $arrangeMovies,
             'request' =>$request,
             'active' => $active],);
     }
