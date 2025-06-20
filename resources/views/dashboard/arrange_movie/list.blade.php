@@ -18,7 +18,7 @@
         <div class="card-header">
             <div class="row">
                 <div class="col-8 align-self-center">
-                    <h3>Theater</h3>
+                    <h3>Theater - <span>{{$theater->theater}}</span></h3>
                 </div>
 
                 <div class="col-4">
@@ -32,7 +32,35 @@
             </div>
         </div>
         <div class="card-body p-0">
-            
+            <div class="card-body p-0">
+                @if($theater > '1')
+                    <table class="table table-striped table-hover table-borderless">
+                        <thead>
+                            <tr>
+                                <th>Movie</th>
+                                <th>Studio</th>
+                                <th>Price</th>
+                                <th>Status</th>
+                                <th>&nbsp;</th>
+                            </tr>
+                        </thead>
+                        
+                        <tbody>
+                           @foreach($arrangeMovies as $arrangeMovie)
+                            <tr>
+                                <td>{{ $arrangeMovie->movies->first()->title }}</td>
+                                <td>{{$arrangeMovie->studio}}</td>
+                                <td>{{$arrangeMovie->price}}</td>
+                                <td>{{$arrangeMovie->status}}</td>
+                                <td>&nbsp;</td>
+                            </tr>
+                           @endforeach
+                        </tbody>
+                    </table>
+                @else
+                    <h4 class="text-center p-3">{{ __('messages.no_data', ['module' => 'theater']) }}</h4>
+                @endif
+            </div>
         </div>
     </div>
 
