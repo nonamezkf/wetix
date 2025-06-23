@@ -22,7 +22,7 @@
                 </div>
 
                 <div class="col-4">
-                    <form action="{{ route('dashboard.theaters') }}" method="get">
+                    <form action="{{ route('dashboard.arrange.movie', $theater->id) }}" method="get">
                         <div class="input-group">
                             <input type="text" class="form-control form-control-sm" name="q" value="{{ $request['q'] ?? '' }}">
                             <button type="submit" class="btn btn-secondary btn-sm ">Search</button>

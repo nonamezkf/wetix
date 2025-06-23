@@ -26,7 +26,12 @@ class ArrangeMovieController extends Controller
         $active = 'Theaters';
         
         $arrangeMovies = ArrangeMovie::where('theater_id', $theater->id)
-                                    ->with('movies')
+                                    // with() digunakan untu menghubungkan data yg berelasi tanpa query search saat menampilkan data
+                                    // ->with('movies')
+                                    // whereHas() digunakan untuk menampilkan data yang berelasi baik tanpa query atatu dengan query
+                                    ->whereHas('movies', function($query) use ($q){
+                                        $query->where('title', 'like', "%$q%");
+                                    })
                                     ->paginate(10);
         
         return view('dashboard/arrange_movie/list', [
