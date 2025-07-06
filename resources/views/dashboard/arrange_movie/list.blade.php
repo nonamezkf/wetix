@@ -52,7 +52,9 @@
                                 <td>{{$arrangeMovie->studio}}</td>
                                 <td>{{$arrangeMovie->price}}</td>
                                 <td>{{$arrangeMovie->status}}</td>
-                                <td>&nbsp;</td>
+                                <td>
+                                    <a href="{{ route('dashboard.arrange.movie.edit', [$theater->id, $arrangeMovie->id]) }}" class="btn btn-success btn-sm" title="edit" ><i class="fas fa-pen"></i></a>
+                                </td>
                             </tr>
                            @endforeach
                         </tbody>
